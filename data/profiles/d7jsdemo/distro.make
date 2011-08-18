@@ -40,34 +40,14 @@ projects[devel][version] = 1.2
 projects[devel][type] = "module"
 projects[devel][subdir] = "contrib"
 
-projects[fivestar][version] = 2.x-dev
-projects[fivestar][type] = "module"
-projects[fivestar][subdir] = "contrib"
-
-projects[jquery_ui][version] = 1.x-dev
-projects[jquery_ui][type] = "module"
-projects[jquery_ui][subdir] = "contrib"
-
-
+projects[username_check][type] = "module"
+projects[username_check][subdir] = "contrib"
+projects[username_check][version] = 1.x-dev
 
 ; Themes
 ; --------
-projects[omega][version] = 3.0-rc4
-projects[omega][type] = "theme"
-
-projects[tao][version] = 3.0-beta3
-projects[tao][type] = "theme"
-
-projects[zen][version] = 3.1
-projects[zen][type] = "theme"
 
 
 
 ; Libraries
 ; ---------
-
-; download jquery UI files to the spot jquery_ui module will be looking for them
-libraries[jquery_ui][download][type] = "file"
-libraries[jquery_ui][download][url] = "http://jquery-ui.googlecode.com/files/jquery.ui-1.6.zip"
-libraries[jquery_ui][sha1] = "3057df12b8b43ba62aa64ab4600ba3e17883fe77"
-libraries[jquery_ui][destination] = "libraries/jquery.ui"
