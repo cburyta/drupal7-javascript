@@ -1,0 +1,237 @@
+<?php
+
+module_load_include('inc', 'd7jsmod', 'd7jsmod.forms');
+
+/**
+ * Implements hook_help.
+ *
+ * Displays help and module information.
+ *
+ * @param path 
+ *   Which path of the site we're using to display help
+ * @param arg 
+ *   Array that holds the current path as returned from arg() function
+ */
+function d7jsmod_help($path, $arg)
+{
+  switch ($path)
+  {
+    case "admin/help#d7jsmod":
+      return '<p>'.  t("Support for a presentation on Drupal 7 and JavaScript") .'</p>';
+      break;
+  }
+}
+
+/**
+ * Define pages to link to
+ */
+function d7jsmod_menu()
+{
+  $items = array();
+
+  // 'page callback' => 'drupal_get_form',
+  // 'page arguments' => array('current_posts_form'),
+  // 'access arguments' => array('access administration pages'),
+
+  $items['demo'] = array(
+    'title' => 'Demo Menu',
+    'description' => 'Menu page for the d7jsmod demo stuff.',
+    'page callback' => 'd7jsmod_page_menu',
+    'page arguments' => array(),
+    'access arguments' => array('access content'),
+    'type' => MENU_SUGGESTED_ITEM,
+  );
+
+
+  $items['demo/page-1'] = array(
+    'title' => 'Demo Page 1 - drupal_add_js',
+    'description' => 'Basic Inclusion',
+    'page callback' => 'd7jsmod_page_1',
+    'page arguments' => array(),
+    'access arguments' => array('access content'),
+    'parent' => 'demo',
+    'type' => MENU_SUGGESTED_ITEM,
+  );
+
+  $items['demo/page-2'] = array(
+    'title' => 'Demo Page 2 - drupal_add_js / Drupal.settings',
+    'description' => 'Test page to show drupal_add_js does not always add every script',
+    'page callback' => 'd7jsmod_page_2',
+    'page arguments' => array(),
+    'access arguments' => array('access content'),
+    'parent' => 'demo',
+    'type' => MENU_SUGGESTED_ITEM,
+  );
+
+  $items['demo/page-3'] = array(
+    'title' => 'Demo Page 3 - drupal_add_library',
+    'description' => 'Use a library ala druapl_add_library',
+    'page callback' => 'd7jsmod_page_3',
+    'page arguments' => array(),
+    'access arguments' => array('access content'),
+    'parent' => 'demo',
+    'type' => MENU_SUGGESTED_ITEM,
+  );
+
+  $items['demo/page-4'] = array(
+    'title' => 'Demo Page 4 - #ajax in forms / behaviors',
+    'description' => 'Show ajax in a basic form',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('demo_form'),
+    'access arguments' => array('access content'),
+    'parent' => 'demo',
+    'type' => MENU_SUGGESTED_ITEM,
+  );
+
+  // $items['demo/page-5'] = array(
+  //   'title' => 'Demo Page 5 - #ajax in links',
+  //   'description' => 'Show ajax in a link',
+  //   'page callback' => 'd7jsmod_page_5',
+  //   'page arguments' => array(),
+  //   'access arguments' => array('access content'),
+  //   'parent' => 'demo',
+  //   'type' => MENU_SUGGESTED_ITEM,
+  // );
+  // 
+  // $items['demo/page-6'] = array(
+  //   'title' => 'Demo Page 6 - just a page',
+  //   'description' => 'Show ajax in a link',
+  //   'page callback' => 'd7jsmod_page_6',
+  //   'page arguments' => array(),
+  //   'access arguments' => array('access content'),
+  //   'parent' => 'demo',
+  //   'type' => MENU_SUGGESTED_ITEM,
+  // );
+
+
+  return $items;
+}
+
+/**
+ * Define a few library files to pack together
+ * @see http://api.drupal.org/api/drupal/modules--system--system.api.php/function/hook_library/7
+ */
+function d7jsmod_library()
+{
+  $libraries['library-1'] = array(
+    'title'   => 'Library One', 
+    'website' => 'http://example.com/library-1',
+    'version' => '1.2', 
+    'js'      => array( drupal_get_path('module', 'd7jsmod') . '/js/library-1.js' => array() ),
+    'css'     => array( drupal_get_path('module', 'd7jsmod') . '/js/library-1.css' => array('type' => 'file', 'media' => 'screen') ),
+    );
+
+  $libraries['library-2'] = array(
+    'title'        => 'Library Two', 
+    'website'      => 'http://example.com/library-2',
+    'version'      => '1.3', 
+    'js'           => array( drupal_get_path('module', 'd7jsmod') . '/js/library-2.js' => array() ),
+    'css'          => array(),
+    'dependencies' => array(
+      // Require jQuery UI core by System module.
+      array('system', 'ui'),
+      // Require jQuery Cookie
+      array('system', 'jquery.cookie'),
+      // Require our other library.
+      array('d7jsmod', 'library-1'),
+      )
+    );
+
+  return $libraries;
+}
+
+/**
+ * So we can centralize the pages in template files
+ */
+// function d7jsmod_theme($existing, $type, $theme, $path)
+// {
+//   return array();
+// }
+
+/**
+ * Demo page menu
+ */
+function d7jsmod_page_menu()
+{
+  $output = '';
+  $items = d7jsmod_menu();
+
+  $output .= '<ul>';
+  foreach($items as $path => $item)
+  {
+    $output .= '<li>' . l($item['title'], $path) . '</li>';
+  }
+  $output .= '</ul>';
+
+  return $output;
+}
+
+/**
+ * Demo the drupal_add_js function
+ *
+ * drupal_add_js($data = NULL, $options = NULL)
+ *
+ * @see http://api.drupal.org/api/drupal/includes--common.inc/function/drupal_add_js
+ */
+function d7jsmod_page_1()
+{
+  // static includes from core
+  drupal_add_js('misc/collapse.js');
+  drupal_add_js('misc/collapse.js', 'file');
+
+  // include files from our module
+  drupal_add_js(drupal_get_path('module', 'd7jsmod') . '/js/page-1.js');
+
+  // do some inline scripting
+  drupal_add_js('jQuery(document).ready(function () { console.log("drupal_add_js: type=inline"); });', 'inline');
+  drupal_add_js('jQuery(document).ready(function () { console.log("drupal_add_js: type=inline / scope=footer / weight=5"); });',
+    array('type' => 'inline', 'scope' => 'footer', 'weight' => 5)
+  );
+
+  drupal_add_js(array('d7jsmod' => array('key' => 'value')), 'setting');
+  
+  
+  // external files outside the site
+  drupal_add_js('http://yui.yahooapis.com/combo?3.3.0/build/yui/yui-min.js', 'external');
+  
+  return 'Page 1 Content';
+}
+
+function d7jsmod_page_2()
+{
+  // include files from our module
+  drupal_add_js(drupal_get_path('module', 'd7jsmod') . '/js/page-2.js');
+
+  drupal_add_js(array('somevalue' => '5555555555'), 'setting');
+
+  // do some inline scripting
+  drupal_add_js('jQuery(document).ready(function () { console.log("page 2 - drupal_add_js: type=inline"); });', 'inline');
+  drupal_add_js('jQuery(document).ready(function () { console.log("page 2 - drupal_add_js: type=inline / scope=footer / weight=5"); });',
+    array('type' => 'inline', 'scope' => 'footer', 'weight' => 5)
+  );
+
+  return 'Page 2 Content';
+}
+
+function d7jsmod_page_3()
+{
+
+  drupal_add_library('system', 'jquery.cookie');
+  
+  drupal_add_library('d7jsmod', 'library-2');
+
+  return 'Page 3 Content';
+}
+
+// /**
+//  * Testing Aggragation
+//  */
+// function d7jsmod_page_5()
+// {
+//   return 'Page 5 Content';
+// }
+// 
+// function d7jsmod_page_6()
+// {
+//   return 'Page 6 Static Content';
+// }

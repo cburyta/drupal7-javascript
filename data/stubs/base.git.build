@@ -1,0 +1,9 @@
+;api = 2
+;core = "7.x"
+;projects[drupal][type] = "core"
+
+;; Installation Profile
+;projects[demo][type] = "profile"
+;projects[demo][download][type] = "git"
+;projects[demo][download][url] = "username@git.server:path/to/repo/demo.git"
+;projects[demo][download][branch] = "master"

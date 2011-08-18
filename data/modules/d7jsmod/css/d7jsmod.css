@@ -1,0 +1,5 @@
+/* clear the checlbox's under the select element */
+.form-item-howmany-select,
+#checkboxes-div {
+	clear:both;
+}

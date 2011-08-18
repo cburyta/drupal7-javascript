@@ -1,0 +1,7 @@
+/* support to show the selected checkbox parents */
+.form-item-checkbox-ischecked {
+	border:1px solid blue;
+	border-radius:5px;
+	padding-top:0;
+	padding-bottom:0;
+}

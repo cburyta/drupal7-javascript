@@ -1,0 +1,11 @@
+name = Drupal 7 JavaScript Walkthrough
+description = "Gives an example different ways to use javascript in drupal."
+core = 7.x
+
+; some styles for our demo stuff
+stylesheets[all][] = css/d7jsmod.css
+
+; some scripts for the pages
+scripts[] = js/everypage.js
+
+; See http://drupal.org/node/542202 for more info on .info files

@@ -1,0 +1,8 @@
+api = 2
+core = "7.x"
+projects[drupal][type] = "core"
+
+; Installation Profile
+projects[d7jsdemo][type] = "profile"
+projects[d7jsdemo][download][type] = "file"
+projects[d7jsdemo][download][url] = "http://chris.local/drupal7-javascript/data/profiles/d7jsdemo.tgz"
