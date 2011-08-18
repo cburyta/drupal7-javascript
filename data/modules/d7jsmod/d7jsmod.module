@@ -29,10 +29,6 @@ function d7jsmod_menu()
 {
   $items = array();
 
-  // 'page callback' => 'drupal_get_form',
-  // 'page arguments' => array('current_posts_form'),
-  // 'access arguments' => array('access administration pages'),
-
   $items['demo'] = array(
     'title' => 'Demo Menu',
     'description' => 'Menu page for the d7jsmod demo stuff.',
@@ -83,27 +79,6 @@ function d7jsmod_menu()
     'type' => MENU_SUGGESTED_ITEM,
   );
 
-  // $items['demo/page-5'] = array(
-  //   'title' => 'Demo Page 5 - #ajax in links',
-  //   'description' => 'Show ajax in a link',
-  //   'page callback' => 'd7jsmod_page_5',
-  //   'page arguments' => array(),
-  //   'access arguments' => array('access content'),
-  //   'parent' => 'demo',
-  //   'type' => MENU_SUGGESTED_ITEM,
-  // );
-  // 
-  // $items['demo/page-6'] = array(
-  //   'title' => 'Demo Page 6 - just a page',
-  //   'description' => 'Show ajax in a link',
-  //   'page callback' => 'd7jsmod_page_6',
-  //   'page arguments' => array(),
-  //   'access arguments' => array('access content'),
-  //   'parent' => 'demo',
-  //   'type' => MENU_SUGGESTED_ITEM,
-  // );
-
-
   return $items;
 }
 
@@ -141,15 +116,7 @@ function d7jsmod_library()
 }
 
 /**
- * So we can centralize the pages in template files
- */
-// function d7jsmod_theme($existing, $type, $theme, $path)
-// {
-//   return array();
-// }
-
-/**
- * Demo page menu
+ * Demo page menu, just spit out all the pages we build in this module.
  */
 function d7jsmod_page_menu()
 {
@@ -197,6 +164,9 @@ function d7jsmod_page_1()
   return 'Page 1 Content';
 }
 
+/**
+ * Construct a basic page displaying some drupal_add_js() examples
+ */
 function d7jsmod_page_2()
 {
   // include files from our module
@@ -213,6 +183,9 @@ function d7jsmod_page_2()
   return 'Page 2 Content';
 }
 
+/**
+ * Construct a basic page displaying the use of drupal_add_library for custom and core libs
+ */
 function d7jsmod_page_3()
 {
 
@@ -222,16 +195,3 @@ function d7jsmod_page_3()
 
   return 'Page 3 Content';
 }
-
-// /**
-//  * Testing Aggragation
-//  */
-// function d7jsmod_page_5()
-// {
-//   return 'Page 5 Content';
-// }
-// 
-// function d7jsmod_page_6()
-// {
-//   return 'Page 6 Static Content';
-// }
